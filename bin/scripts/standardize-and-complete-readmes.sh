@@ -38,6 +38,12 @@ function appendGeneralInfo {
   else
     downloadfrom="Direct links for [${fontname}.zip](https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${fontname}.zip) or [${fontname}.tar.xz](https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${fontname}.tar.xz)"
   fi
+  local iconinfo="${sd}/../../src/glyphs/README.md"
+  local iconinfostart=$(grep -Einm 1 '^#+ +icon' "${iconinfo}" | sed 's/:.*//')
+  {
+    printf "\n"
+    tail -n "+${iconinfostart}" "${iconinfo}"
+  } >> "${dest}"
   sed -e "s|%DOWNLOADFROM%|${downloadfrom}|" "${sd}/../../src/readme-per-directory-addendum.md" >> "${dest}"
 }
 
